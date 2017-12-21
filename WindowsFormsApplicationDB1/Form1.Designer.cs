@@ -35,6 +35,7 @@
             this.buttonReader = new System.Windows.Forms.Button();
             this.listBoxAusgabe = new System.Windows.Forms.ListBox();
             this.buttonChange = new System.Windows.Forms.Button();
+            this.buttonInsert = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,11 +103,22 @@
             this.buttonChange.UseVisualStyleBackColor = true;
             this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
             // 
+            // buttonInsert
+            // 
+            this.buttonInsert.Location = new System.Drawing.Point(391, 344);
+            this.buttonInsert.Name = "buttonInsert";
+            this.buttonInsert.Size = new System.Drawing.Size(146, 38);
+            this.buttonInsert.TabIndex = 6;
+            this.buttonInsert.Text = "Neuer Datensatz";
+            this.buttonInsert.UseVisualStyleBackColor = true;
+            this.buttonInsert.Click += new System.EventHandler(this.buttonInsert_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 473);
+            this.Controls.Add(this.buttonInsert);
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.listBoxAusgabe);
             this.Controls.Add(this.buttonReader);
@@ -131,6 +143,7 @@
         private System.Windows.Forms.Button buttonReader;
         private System.Windows.Forms.ListBox listBoxAusgabe;
         private System.Windows.Forms.Button buttonChange;
+        private System.Windows.Forms.Button buttonInsert;
     }
 }
 

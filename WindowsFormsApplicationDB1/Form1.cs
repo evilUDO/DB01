@@ -111,6 +111,8 @@ namespace WindowsFormsApplicationDB1
                 if(frmUpdate.Result == DialogResult.OK)
                 {
                     updateArtikel(a);
+                    listBoxAusgabe.DataSource = null;
+                    listBoxAusgabe.DataSource = artikelList;
                 }
                 else
                 {
@@ -148,6 +150,28 @@ namespace WindowsFormsApplicationDB1
                 MessageBox.Show("Fehler beim Update");
                 toolStripStatusLabel1.Text = exc.Message;
             }
+        }
+
+        private void buttonInsert_Click(object sender, EventArgs e)
+        {
+            Artikel a = new Artikel();
+            FormInsert frmInsert = new FormInsert(con,a);
+            frmInsert.ShowDialog();
+            if (frmInsert.Result == DialogResult.OK)
+            {
+                insertArtikel(a);
+                listBoxAusgabe.DataSource = null;
+                listBoxAusgabe.DataSource = artikelList;
+            }
+            else
+            {
+                this.toolStripStatusLabel1.Text = "Einfügen wurde abgebrochen";
+            }
+        }
+
+        private void insertArtikel(Artikel a)
+        {
+            throw new NotImplementedException();
         }
     }
 }

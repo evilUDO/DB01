@@ -199,7 +199,7 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(347, 326);
+            this.buttonOk.Location = new System.Drawing.Point(344, 291);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 46);
             this.buttonOk.TabIndex = 18;
@@ -209,7 +209,7 @@
             // 
             // buttonAbbrechen
             // 
-            this.buttonAbbrechen.Location = new System.Drawing.Point(467, 326);
+            this.buttonAbbrechen.Location = new System.Drawing.Point(455, 291);
             this.buttonAbbrechen.Name = "buttonAbbrechen";
             this.buttonAbbrechen.Size = new System.Drawing.Size(70, 45);
             this.buttonAbbrechen.TabIndex = 19;

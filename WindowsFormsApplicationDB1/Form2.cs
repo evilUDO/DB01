@@ -81,5 +81,11 @@ namespace WindowsFormsApplicationDB1
             this.Result = DialogResult.Cancel;
             this.Close();
         }
+
+        private void buttonTextOpen_Click(object sender, EventArgs e)
+        {
+            textBoxArtikelgruppe.Enabled = true;
+            textBoxVerpackung.Enabled = true;
+        }
     }
 }
