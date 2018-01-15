@@ -83,14 +83,22 @@ namespace WindowsFormsApplicationDB1
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            a.ArtikelNr = textBoxArtikelnummer.Text;
-            a.ArtikelGruppe = Convert.ToInt32(comboBoxArtGruppe.SelectedText);
-            a.Bezeichnung = textBoxArtikelbezeichnung.Text;
-            a.Bestand = Convert.ToUInt16(textBoxBestand.Text);
-            a.Meldebestand = Convert.ToInt16(textBoxMeldebestand.Text);
-            a.Verpackung = Convert.ToInt32(comboBoxVerpackung.SelectedText);
-            a.VkPreis = Convert.ToDecimal(textBoxVkPreis.Text);
-            a.LetzteEntnahme = dateTimePickerletzteEntnahme.Value;
+            try
+            {
+                a.ArtikelNr = textBoxArtikelnummer.Text;
+                a.ArtikelGruppe = ((ArtikelGruppe)comboBoxArtGruppe.SelectedItem).Id;
+                a.Bezeichnung = textBoxArtikelbezeichnung.Text;
+                a.Bestand = Convert.ToUInt16(textBoxBestand.Text);
+                a.Meldebestand = Convert.ToInt16(textBoxMeldebestand.Text);
+                a.Verpackung = ((Verpackung)comboBoxVerpackung.SelectedItem).Id;
+                a.VkPreis = Convert.ToDecimal(textBoxVkPreis.Text);
+                a.LetzteEntnahme = dateTimePickerletzteEntnahme.Value;
+            }
+            catch (Exception)
+            {
+
+                a = null;
+            }
             this.Close();
         }
     }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace WindowsFormsApplicationDB1
 {
@@ -51,6 +52,7 @@ namespace WindowsFormsApplicationDB1
         {
             cmd = con.CreateCommand();
             cmd.CommandText = "Select * from tArtikel;";
+            //cmd = new OleDbCommand("Select * from tArtikel;", con);
             try
             {
                 reader = cmd.ExecuteReader();
@@ -106,6 +108,7 @@ namespace WindowsFormsApplicationDB1
             if (listBoxAusgabe.SelectedItem != null)
             {
                 Artikel a = (Artikel)listBoxAusgabe.SelectedItem;
+                a.onUpdateError = MeldeBestand;
                 Form2 frmUpdate = new Form2(a);
                 frmUpdate.ShowDialog(); // modales Fenster = innerhalb der Anwendung kann kein anderes Fenster verwendet werden
                 if(frmUpdate.Result == DialogResult.OK)
@@ -131,7 +134,7 @@ namespace WindowsFormsApplicationDB1
             cmd.Parameters.AddWithValue("BEZ", a.Bezeichnung);
             cmd.Parameters.AddWithValue("BEST", a.Bestand);
             cmd.Parameters.AddWithValue("MELDBEST", a.Meldebestand);
-            cmd.Parameters.AddWithValue("VKP", a.VkPreis);
+            cmd.Parameters.AddWithValue("VKP", a.VkPreis.ToString(new CultureInfo("de-DE")));
             cmd.Parameters.AddWithValue("LENT", a.LetzteEntnahme);
             //TODO: Commandtext: SQL
             String sql = "UPDATE tArtikel SET ArtikelNr = ANR, Bezeichnung = BEZ, Bestand = BEST, Meldebestand = MELDBEST, VkPreis = VKP, letzteEntnahme = LENT ";   //Bei ? statt ANR wird der erste Wert verwendet
@@ -171,7 +174,45 @@ namespace WindowsFormsApplicationDB1
 
         private void insertArtikel(Artikel a)
         {
-            throw new NotImplementedException();
+            OleDbCommand cmd = con.CreateCommand();
+            cmd.Parameters.AddWithValue("ANR", a.ArtikelNr);
+            cmd.Parameters.AddWithValue("AGR", a.ArtikelGruppe);
+            cmd.Parameters.AddWithValue("BEZ", a.Bezeichnung);
+            cmd.Parameters.AddWithValue("BEST", a.Bestand);
+            cmd.Parameters.AddWithValue("MELDBEST", a.Meldebestand);
+            cmd.Parameters.AddWithValue("VER", a.Verpackung);
+            cmd.Parameters.AddWithValue("VKP", a.VkPreis.ToString(new CultureInfo("de-DE")));
+            cmd.Parameters.AddWithValue("LENT", a.LetzteEntnahme);
+
+            String sql = "INSERT INTO tArtikel(ArtikelNr,ArtikelGruppe,Bezeichnung,Bestand,Meldebestand,Verpackung,VkPreis,letzteEntnahme) ";
+            sql += "VALUES(ANR,AGR,BEZ,BEST,MELDBEST,VER,VKP,LENT)";
+            cmd.CommandText = sql;
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception exc)
+            {
+
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            OleDbCommand cmd = con.CreateCommand();
+            cmd.CommandText = "Insert INTO tBezirk(Bezirk) Values ('" + textBoxBezirk.Text + "')";
+            cmd.CommandType = CommandType.Text;
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "SELECT @@IDENTITY FROM tBezirk";
+            Int32 id =  Convert.ToInt32(cmd.ExecuteScalar());
+            MessageBox.Show("Satz wurde mit Id = " + id.ToString() + "eingefügt");
+        }
+
+        private void MeldeBestand(String message)
+        {
+            MessageBox.Show(message);
         }
     }
 }
